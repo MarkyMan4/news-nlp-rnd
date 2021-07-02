@@ -1,0 +1,7 @@
+starting
+error with URL: https://www.newsweek.com/ship-that-sunk-carrying-25-tons-chemicals-caused-significant-damage-planet-1602657
+Article `download()` failed with 403 Client Error: Forbidden for url: https://www.newsweek.com/ship-that-sunk-carrying-25-tons-chemicals-caused-significant-damage-planet-1602657 on URL https://www.newsweek.com/ship-that-sunk-carrying-25-tons-chemicals-caused-significant-damage-planet-1602657
+retrieved 8 articles
+inserted 2 records into news_article
+failed
+Total run time: 0:00:15.685793

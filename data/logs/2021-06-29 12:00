@@ -1,0 +1,10 @@
+starting
+error with URL: https://www.barrons.com/news/mexico-supreme-court-decriminalizes-recreational-marijuana-use-01624911307
+Article `download()` failed with 403 Client Error: Forbidden for url: https://www.barrons.com/news/mexico-supreme-court-decriminalizes-recreational-marijuana-use-01624911307 on URL https://www.barrons.com/news/mexico-supreme-court-decriminalizes-recreational-marijuana-use-01624911307
+error with URL: https://www.abc.net.au/news/2021-06-29/mexico-supreme-court-decriminalises-marijuana-for-personal-use/100252604
+Article `download()` failed with 403 Client Error: Forbidden for url: https://www.abc.net.au/news/2021-06-29/mexico-supreme-court-decriminalises-marijuana-for-personal-use/100252604 on URL https://www.abc.net.au/news/2021-06-29/mexico-supreme-court-decriminalises-marijuana-for-personal-use/100252604
+retrieved 7 articles
+inserted 2 records into news_article
+inserted 2 records into news_articlenlp
+success
+Total run time: 0:00:16.363303

@@ -1,0 +1,9 @@
+starting
+error with URL: https://www.thelocal.se/20210621/sweden-stefan-lofven-loses-no-confidence-motion/
+Article `download()` failed with 403 Client Error: Forbidden for url: https://www.thelocal.se/20210621/sweden-stefan-lofven-loses-no-confidence-motion/ on URL https://www.thelocal.se/20210621/sweden-stefan-lofven-loses-no-confidence-motion/
+error with URL: https://www.sbs.com.au/news/hong-kong-s-pro-democracy-apple-daily-newspaper-could-shut-in-a-matter-of-days-after-asset-freeze
+Article `download()` failed with 404 Client Error: Not Found for url: https://www.sbs.com.au/news/hong-kong-s-pro-democracy-apple-daily-newspaper-could-shut-in-a-matter-of-days-after-asset-freeze on URL https://www.sbs.com.au/news/hong-kong-s-pro-democracy-apple-daily-newspaper-could-shut-in-a-matter-of-days-after-asset-freeze
+retrieved 7 articles
+inserted 3 records into news_article
+failed
+Total run time: 0:00:17.578803

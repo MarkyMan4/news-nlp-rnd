@@ -1,0 +1,7 @@
+starting
+error with URL: https://www.theguardian.com/environment/2021/jun/20/un-blasts-world-leaders-for-failing-to-seal-72bn-a-year-deal-on-climate
+Article `download()` failed with HTTPSConnectionPool(host='www.theguardian.com', port=443): Max retries exceeded with url: /environment/2021/jun/20/un-blasts-world-leaders-for-failing-to-seal-72bn-a-year-deal-on-climate (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fcb777bf1f0>: Failed to establish a new connection: [Errno 101] Network is unreachable')) on URL https://www.theguardian.com/environment/2021/jun/20/un-blasts-world-leaders-for-failing-to-seal-72bn-a-year-deal-on-climate
+retrieved 8 articles
+inserted 3 records into news_article
+failed
+Total run time: 0:00:21.328298

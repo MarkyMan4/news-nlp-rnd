@@ -1,0 +1,5 @@
+starting
+error with URL: https://www.newsweek.com/russia-china-pledge-not-use-nuclear-weapons-first-avoid-firing-missiles-each-other-1604865
+Article `download()` failed with 403 Client Error: Forbidden for url: https://www.newsweek.com/russia-china-pledge-not-use-nuclear-weapons-first-avoid-firing-missiles-each-other-1604865 on URL https://www.newsweek.com/russia-china-pledge-not-use-nuclear-weapons-first-avoid-firing-missiles-each-other-1604865
+failed
+Total run time: 0:00:06.644675
