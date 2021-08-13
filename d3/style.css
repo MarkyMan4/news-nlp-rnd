@@ -1,0 +1,9 @@
+.container {
+    height: 400px;
+    width: 600px;
+    border: 1px solid blue;
+}
+
+.bar {
+    fill: rgb(247, 0, 62);
+}
