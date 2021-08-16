@@ -6,4 +6,5 @@
 
 .bar {
     fill: rgb(247, 0, 62);
+    pointer-events: all;
 }

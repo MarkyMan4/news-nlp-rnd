@@ -16,8 +16,19 @@ const yScale = d3
     .domain([0, 15]) // min and max on y axis
     .range([400, 0]); 
 
+const handleMouseHover = (d, i) => {
+    d3.select(this)
+        .attr('opacity', 0.1);
+}
+
 const container = d3.select('svg')
-    .classed('container', true);
+    .classed('container', true)
+    .on('mouseover', handleMouseHover);
+
+const handleMouseOut = (d, i) => {
+    d3.select(this)
+        .attr('fill', 'blue');
+}
 
 // basic bar chart
 const bars = container
@@ -29,7 +40,23 @@ const bars = container
     .attr('width', xScale.bandwidth())
     .attr('height', data => 400 -  yScale(data.value))
     .attr('x', data => xScale(data.region))
-    .attr('y', data => yScale(data.value));
+    .attr('y', data => yScale(data.value))
+    .on('mouseover', handleMouseHover);
+
+// select div by ID
+d3.select('#test')
+    .selectAll('p')
+    .data(dummyData)
+    .enter()
+    .append('p')
+    .text(data => data.region);
+
+d3.select('#test2')
+    .selectAll('p')
+    .data(dummyData)
+    .enter()
+    .append('p')
+    .text(data => data.value);
 
 // create three p tags and display the region for objecdt
 // d3.select('div')
