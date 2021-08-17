@@ -16,52 +16,37 @@ const yScale = d3
     .domain([0, 15]) // min and max on y axis
     .range([400, 0]); 
 
-const handleMouseHover = (d, i) => {
-    d3.select(this)
-        .attr('opacity', 0.1);
+const container = d3.select('svg')
+    .classed('container', true);
+
+
+// make bar lighter on mouse hover
+const handleMouseOver = (d, i) => {
+    d3.select(d.target)
+        .transition()
+        .duration(250)
+        .attr('opacity', 0.5);
 }
 
-const container = d3.select('svg')
-    .classed('container', true)
-    .on('mouseover', handleMouseHover);
-
+// go back to normal opacity when mouse exits bar
 const handleMouseOut = (d, i) => {
-    d3.select(this)
-        .attr('fill', 'blue');
+    d3.select(d.target)
+        .transition()
+        .duration(250)
+        .attr('opacity', 1);
 }
 
 // basic bar chart
 const bars = container
-    .selectAll('.bar')
+    .selectAll('rect')
     .data(dummyData)
     .enter()
     .append('rect')
-    .classed('bar', true)
+    .attr('fill', 'red')
     .attr('width', xScale.bandwidth())
     .attr('height', data => 400 -  yScale(data.value))
     .attr('x', data => xScale(data.region))
     .attr('y', data => yScale(data.value))
-    .on('mouseover', handleMouseHover);
+    .on('mouseover', handleMouseOver)
+    .on('mouseout', handleMouseOut);
 
-// select div by ID
-d3.select('#test')
-    .selectAll('p')
-    .data(dummyData)
-    .enter()
-    .append('p')
-    .text(data => data.region);
-
-d3.select('#test2')
-    .selectAll('p')
-    .data(dummyData)
-    .enter()
-    .append('p')
-    .text(data => data.value);
-
-// create three p tags and display the region for objecdt
-// d3.select('div')
-//     .selectAll('p')
-//     .data(dummyData)
-//     .enter()
-//     .append('p')
-//     .text(data => data.region);
