@@ -19,21 +19,51 @@ const yScale = d3
 const container = d3.select('svg')
     .classed('container', true);
 
-
-// make bar lighter on mouse hover
 const handleMouseOver = (d, i) => {
+    const rectX = parseFloat(d3.select(d.target).attr('x'));
+    const rectCenter = (parseFloat(d3.select(d.target).attr('width')) / 2);
+
+    const textX = rectX + rectCenter;
+    const textY = d3.select(d.target).attr('y') - 10;
+    const data = d.target.__data__.value;
+
+    // add a text label showing the data
+    d3.select(d.fromElement)
+        .append('text')
+        .style('text-anchor', 'middle') // allows text to be centered over rect
+        .attr('x', textX)
+        .attr('y', textY)
+        .attr('font-size', '18pt')
+        .attr('font-family', 'monospace')
+        .text(data);
+    
+    // make bar lighter on mouse hover
     d3.select(d.target)
         .transition()
-        .duration(250)
+        .duration(150)
         .attr('opacity', 0.5);
 }
 
-// go back to normal opacity when mouse exits bar
 const handleMouseOut = (d, i) => {
+    // remove text
+    d3.selectAll('text').remove();
+
+    // go back to normal opacity when mouse exits bar
     d3.select(d.target)
         .transition()
-        .duration(250)
+        .duration(150)
         .attr('opacity', 1);
+}
+
+// make a bar a random color when clicked
+const handleMouseClick = (d, i) => {
+    const randVals = [];
+
+    for(let i = 0; i < 3; i++)
+        randVals.push(Math.floor(Math.random() * 255));
+    
+    d3.select(d.target)
+        .attr('fill', `rgb(${randVals[0]}, ${randVals[1]}, ${randVals[2]})`);
 }
 
 // basic bar chart
@@ -48,5 +78,6 @@ const bars = container
     .attr('x', data => xScale(data.region))
     .attr('y', data => yScale(data.value))
     .on('mouseover', handleMouseOver)
-    .on('mouseout', handleMouseOut);
+    .on('mouseout', handleMouseOut)
+    .on('click', handleMouseClick);
 
