@@ -35,6 +35,7 @@ const handleMouseOver = (d, i) => {
         .attr('y', textY)
         .attr('font-size', '18pt')
         .attr('font-family', 'monospace')
+        .attr('id', 'hover-text') //
         .text(data);
     
     // make bar lighter on mouse hover
@@ -46,7 +47,7 @@ const handleMouseOver = (d, i) => {
 
 const handleMouseOut = (d, i) => {
     // remove text
-    d3.selectAll('text').remove();
+    d3.selectAll('#hover-text').remove();
 
     // go back to normal opacity when mouse exits bar
     d3.select(d.target)
@@ -74,10 +75,29 @@ const bars = container
     .append('rect')
     .attr('fill', 'red')
     .attr('width', xScale.bandwidth())
-    .attr('height', data => 400 -  yScale(data.value))
+    .attr('height', data => 370 - yScale(data.value))
     .attr('x', data => xScale(data.region))
     .attr('y', data => yScale(data.value))
     .on('mouseover', handleMouseOver)
     .on('mouseout', handleMouseOut)
     .on('click', handleMouseClick);
 
+// add labels for each bar
+container
+    .selectAll('text')
+    .data(dummyData)
+    .enter()
+    .append('text')
+    .style('text-anchor', 'middle')
+    .attr('x', data => xScale(data.region) + (xScale.bandwidth() / 2)) // centers text on bars
+    .attr('y', 395)
+    .text(data => data.region);
+
+// add a line separating labels and bars
+container
+    .append('line')
+    .attr('x1', 0)
+    .attr('y1', 370)
+    .attr('x2', 600)
+    .attr('y2', 370)
+    .attr('stroke', 'black');
