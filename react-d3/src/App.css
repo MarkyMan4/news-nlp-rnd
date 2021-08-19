@@ -1,0 +1,11 @@
+.app {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 50px;
+}
+
+.container {
+  width: 600px;
+  height: 400px;
+  border: 1px solid black;
+}
