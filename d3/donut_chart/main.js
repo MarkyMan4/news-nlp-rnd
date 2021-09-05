@@ -15,18 +15,11 @@ const svg = d3.select('svg')
     .append('g')
     .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-
-// generate some random colors so every category can have its own color
-let colorOptions = [];
-Object.keys(dummyData)
-    .forEach(d => colorOptions.push(`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`));
-
 // set the color scale
-const color = d3.scaleOrdinal(colorOptions);
+const color = d3.scaleOrdinal().domain(Object.keys(dummyData)).range(d3.schemeDark2);
 
 const pie = d3.pie();
 const pieData = pie(Object.values(dummyData));
-console.log(color('Mexico'));
 
 const handleMouseOver = (d, i) => {
     d3.select(d.target)
@@ -42,20 +35,63 @@ const handleMouseOut = (d, i) => {
         .attr('opacity', 1);
 }
 
+// arcs for the chart
+const arc = d3.arc()
+    .innerRadius(0)
+    .outerRadius(radius);
+
+// arcs for drawing the text labels
+const outerArc = d3.arc()
+    .innerRadius(radius * 1.2)
+    .outerRadius(radius * 1.2);
+
 svg
   .selectAll('path')
   .data(pieData)
   .enter()
   .append('path')
-  .attr('d', d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius)
-  )
-  .attr('fill', (data, indx) => color(indx))
+  .attr('d', arc)
+  .attr('fill', (data, indx) => color(Object.entries(dummyData)[indx][0])) // lookup color based on label
   .attr('stroke', 'white')
   .on('mouseover', handleMouseOver)
   .on('mouseout', handleMouseOut);
 
+const getTextPos = (d) => {
+    var pos = outerArc.centroid(d);
+    var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+    pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+    return pos;
+}
+
+const getMidangle = (d) => {
+    return d.startAngle + (d.endAngle - d.startAngle) / 2;
+}
+
+// add text labels to each slice of the chart
+svg
+  .selectAll('allLabels')
+  .data(pieData)
+  .enter()
+  .append('text')
+    .text((data, indx) => Object.entries(dummyData)[indx][0])
+    .attr('transform', d => 'translate(' + getTextPos(d) + ')')
+    .style('text-anchor', d => {
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+        return (midangle < Math.PI ? 'start' : 'end')
+    });
+
+// add lines so the text points to a section of the chart
+svg
+    .selectAll('allLines')
+    .data(pieData)
+    .enter()
+    .append('line')
+    .attr('stroke', 'black')
+    .attr('stroke-width', '1px')
+    .attr('x1', d => getTextPos(d)[0])
+    .attr('x2', d => arc.centroid(d)[0])
+    .attr('y1', d => getTextPos(d)[1])
+    .attr('y2', d => arc.centroid(d)[1]);
 
 // no need to center this because it's in a group which is already centered
 svg
