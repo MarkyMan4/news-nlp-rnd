@@ -26,6 +26,17 @@ const handleMouseOver = (d, i) => {
         .transition()
         .duration(150)
         .attr('opacity', 0.8);
+
+    const textX = arc.centroid(i)[0];
+    const textY = arc.centroid(i)[1];
+
+    svg
+        .append('text')
+        .attr('id', 'hover-text')
+        .attr('x', textX)
+        .attr('y', textY)
+        .attr('text-anchor', getMidangle(i) < Math.PI ? 'end' : 'start')
+        .text(i.value);
 }
 
 const handleMouseOut = (d, i) => {
@@ -33,6 +44,8 @@ const handleMouseOut = (d, i) => {
         .transition()
         .duration(150)
         .attr('opacity', 1);
+
+    d3.selectAll('#hover-text').remove();
 }
 
 // arcs for the chart - setting an inner radius makes this a donut chart
@@ -63,6 +76,7 @@ const getTextPos = (d) => {
     return pos;
 }
 
+// find the angle between two angles
 const getMidangle = (d) => {
     return d.startAngle + (d.endAngle - d.startAngle) / 2;
 }
@@ -76,7 +90,7 @@ svg
     .text((data, indx) => Object.entries(dummyData)[indx][0])
     .attr('transform', d => 'translate(' + getTextPos(d) + ')')
     .style('text-anchor', d => {
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+        var midangle = getMidangle(d)
         return (midangle < Math.PI ? 'start' : 'end')
     });
 
