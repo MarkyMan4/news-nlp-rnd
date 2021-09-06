@@ -58,8 +58,8 @@ svg
 
 const getTextPos = (d) => {
     var pos = outerArc.centroid(d);
-    var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-    pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+    // var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+    // pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
     return pos;
 }
 
@@ -80,18 +80,34 @@ svg
         return (midangle < Math.PI ? 'start' : 'end')
     });
 
-// add lines so the text points to a section of the chart
+// add lines pointing labels to section of chart
 svg
-    .selectAll('allLines')
-    .data(pieData)
-    .enter()
-    .append('line')
-    .attr('stroke', 'black')
-    .attr('stroke-width', '1px')
-    .attr('x1', d => getTextPos(d)[0])
-    .attr('x2', d => arc.centroid(d)[0])
-    .attr('y1', d => getTextPos(d)[1])
-    .attr('y2', d => arc.centroid(d)[1]);
+  .selectAll('allPolylines')
+  .data(pieData)
+  .enter()
+  .append('polyline')
+    .attr("stroke", "black")
+    .style("fill", "none")
+    .attr("stroke-width", 1)
+    .attr('points', function(d) {
+      var posA = arc.centroid(d);
+      var posB = outerArc.centroid(d);
+      var posC = outerArc.centroid(d);
+      return [posA, posB, posC]
+    });
+
+// add lines so the text points to a section of the chart
+// svg
+//     .selectAll('allLines')
+//     .data(pieData)
+//     .enter()
+//     .append('line')
+//     .attr('stroke', 'black')
+//     .attr('stroke-width', '1px')
+//     .attr('x1', d => getTextPos(d)[0])
+//     .attr('x2', d => arc.centroid(d)[0])
+//     .attr('y1', d => getTextPos(d)[1])
+//     .attr('y2', d => arc.centroid(d)[1]);
 
 
 //////////////////////////////////////////////////////////////
