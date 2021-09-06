@@ -35,9 +35,9 @@ const handleMouseOut = (d, i) => {
         .attr('opacity', 1);
 }
 
-// arcs for the chart
+// arcs for the chart - setting an inner radius makes this a donut chart
 const arc = d3.arc()
-    .innerRadius(0)
+    .innerRadius(75)
     .outerRadius(radius);
 
 // arcs for drawing the text labels
@@ -92,12 +92,6 @@ svg
     .attr('x2', d => arc.centroid(d)[0])
     .attr('y1', d => getTextPos(d)[1])
     .attr('y2', d => arc.centroid(d)[1]);
-
-// no need to center this because it's in a group which is already centered
-svg
-    .append('circle')
-    .attr('r', 75)
-    .attr('fill', 'white');
 
 
 //////////////////////////////////////////////////////////////
