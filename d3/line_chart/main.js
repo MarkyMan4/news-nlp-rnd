@@ -11,6 +11,8 @@ const dummyData = [
     {x: 10, y: 45},
 ];
 
+
+
 const margin = {
     top: 10,
     left: 30,
@@ -23,17 +25,30 @@ const height = 400;
 
 const svg = d3.select('svg').classed('container', true);
 
-const xScale = d3.scaleTime()
-    .domain([0, d3.max(dummyData, d => d.x)])
+const xScale = d3.scaleLinear()
+    .domain([0, d3.max(dummyData, d => d.x) + 1])
     .range([0, width]);
 
 const yScale = d3.scaleLinear()
-    .domain([0, d3.max(dummyData, d => d.y)])
+    .domain([0, d3.max(dummyData, d => d.y) + 10])
     .range([height, 0]);
 
+// x-axis
+svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`) // This controls the vertical position of the Axis
+    .call(d3.axisBottom(xScale));
+
+// y-axis
+svg
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${-margin.bottom})`) // This controls the vertical position of the Axis
+    .call(d3.axisLeft(yScale));
+
+// need to add margin left and bottom to align the line with the axis
 const line = d3.line()
-    .x(d => xScale(d.x))
-    .y(d => yScale(d.y));
+    .x(d => xScale(d.x) + margin.left)
+    .y(d => yScale(d.y) - margin.bottom);
 
 svg
     .append('path')
