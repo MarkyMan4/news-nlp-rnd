@@ -139,3 +139,5 @@ cython_debug/
 secrets.json
 
 node_modules
+
+data
